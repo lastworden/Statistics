@@ -1,0 +1,16 @@
+For installing a package not available directly in anaconda R
+
+http://stackoverflow.com/questions/34705917/conda-how-to-install-r-packages-that-are-not-available-in-r-essentials
+
+go to normal R
+
+
+install.packages("package", "anaconda r library path")
+
+to get anaconda libray path
+
+
+goto anaconda R and command
+
+
+.Library
