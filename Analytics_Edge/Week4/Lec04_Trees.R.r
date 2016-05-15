@@ -15,9 +15,11 @@ Train = subset(stevens, split == TRUE)
 
 Test = subset(stevens, split == FALSE)
 
-str(Test)
+str(Train)
 
 library(rpart)
+
+.Library
 
 library(rpart.plot)
 
@@ -95,5 +97,32 @@ PredictForest = predict(StevensForest, newdata = Test)
 table(Test$Reverse,PredictForest)
 
 (44+76)/(44+76+33+17)
+
+getwd()
+
+library(caret)
+
+library(e1071)
+
+numFolds = trainControl(method = "cv",number = 10)
+
+cpGrid = expand.grid(.cp=seq(0.01,0.5,0.01))
+
+summary(cpGrid)
+
+class(cpGrid)
+
+train(Reverse~ Circuit+Issue+Petitioner+Respondent+LowerCourt+Unconst,data = Train, method = "rpart", trControl = numFolds, 
+      tuneGrid = cpGrid)
+
+StevensTreeCV = rpart(Reverse~ Circuit+Issue+Petitioner+Respondent+LowerCourt+Unconst, data = Train, method = "class", cp=0.19)
+
+PredictCV = predict(StevensTreeCV,newdata = Test, type = "class")
+
+table(Test$Reverse,PredictCV)
+
+(59+64)/(59+18+29+64)
+
+prp(StevensTreeCV)
 
 

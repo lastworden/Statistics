@@ -85,4 +85,10 @@ p3[c(TRUE,FALSE),c(TRUE,FALSE)]
 
 p3
 
+rowSums(m3)
+
+colSums(m3)
+
+m3
+
 
