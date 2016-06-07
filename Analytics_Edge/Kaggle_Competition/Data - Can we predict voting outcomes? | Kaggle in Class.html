@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6 lte7 lte8 lte9"><![endif]-->
+<!--[if IE 7 ]><html class="ie ie7 lte7 lte8 lte9"><![endif]-->
+<!--[if IE 8 ]><html class="ie ie8 lte8 lte9"><![endif]-->
+<!--[if IE 9 ]><html class="ie ie9 lte9"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html><!--<![endif]--><head>
+    <link href="Data%20-%20Can%20we%20predict%20voting%20outcomes%3F%20%7C%20Kaggle%20in%20Class_files/css.css" rel="stylesheet" type="text/css"> 
+
+    
+    <link rel="stylesheet" href="Data%20-%20Can%20we%20predict%20voting%20outcomes%3F%20%7C%20Kaggle%20in%20Class_files/font-awesome.css">
+
+    
+    
+    <title>Data - Can we predict voting outcomes? | Kaggle in Class</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="robots" content="index, follow">
+    <link href="https://inclass.kaggle.com/content/v/e7918c3028a4/inclass/favicon.ico" rel="shortcut icon" type="image/x-icon">
+
+    
+        <meta name="keywords" content="Kaggle, class, classroom, data mining, forecasting, statistics, prediction, bioinformatics, competitions, contests, crowdsourced analytics">
+            <meta name="description" content="allows instructors to host data prediction competitions for their students. Competitions are a great way to engage students, giving them the opportunity to put into practice what they learn in class">
+
+            <link rel="stylesheet" href="Data%20-%20Can%20we%20predict%20voting%20outcomes%3F%20%7C%20Kaggle%20in%20Class_files/base.css" type="text/css">
+        <link rel="stylesheet" href="Data%20-%20Can%20we%20predict%20voting%20outcomes%3F%20%7C%20Kaggle%20in%20Class_files/inclass-site.css" type="text/css">
+
+        <script src="Data%20-%20Can%20we%20predict%20voting%20outcomes%3F%20%7C%20Kaggle%20in%20Class_files/koj6gxx6.js" async="" type="text/javascript"></script><script src="Data%20-%20Can%20we%20predict%20voting%20outcomes%3F%20%7C%20Kaggle%20in%20Class_files/ga.js" async="" type="text/javascript"></script><script type="text/javascript" src="Data%20-%20Can%20we%20predict%20voting%20outcomes%3F%20%7C%20Kaggle%20in%20Class_files/jquery-1.js"></script>
+            <script type="text/javascript" src="Data%20-%20Can%20we%20predict%20voting%20outcomes%3F%20%7C%20Kaggle%20in%20Class_files/jquery-ui-1.js"></script>
+
+    
+        <script type="text/javascript" src="Data%20-%20Can%20we%20predict%20voting%20outcomes%3F%20%7C%20Kaggle%20in%20Class_files/kaggle.js"></script>
+        <script type="text/javascript">
+            
+            Kaggle.Current.siteId = 3;
+                Kaggle.Current.competitionId = 5275;
+                    </script>
+
+    
+    <!--[if (gte IE 6)&(lte IE 8)]>
+        <script type="text/javascript" src="/content/v/f1f17fea7cee/shared/js/ie/selectivizr.min.js"></script>
+    <![endif]-->
+
+    
+                                            <script type="text/javascript" src="Data%20-%20Can%20we%20predict%20voting%20outcomes%3F%20%7C%20Kaggle%20in%20Class_files/MathJax.js"></script>
+    
+                                                                        
+                    <link rel="apple-touch-icon" href="https://inclass.kaggle.com/content/v/1d6e48bac622/inclass/img/apple-touch-icon.png">
+
+
+    
+    <!--[if lt IE 9]>
+        <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    
+    
+    
+
+
+    <script>
+          window.intercomSettings = {
+            app_id: "koj6gxx6"
+          };
+    </script>
+<script>(function(){var w=window;var ic=w.Intercom;if(typeof ic==="function"){ic('reattach_activator');ic('update',intercomSettings);}else{var d=document;var i=function(){i.c(arguments)};i.q=[];i.c=function(args){i.q.push(args)};w.Intercom=i;function l(){var s=d.createElement('script');s.type='text/javascript';s.async=true;s.src='https://widget.intercom.io/widget/koj6gxx6';var x=d.getElementsByTagName('script')[0];x.parentNode.insertBefore(s,x);}if(w.attachEvent){w.attachEvent('onload',l);}else{w.addEventListener('load',l,false);}}})()</script>
+<style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 5px 0px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; -khtml-border-radius: 5px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 1px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: .7em}
+.MathJax_MenuRadioCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuLabel {padding: 1px 2em 3px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #DDDDDD; margin: 4px 3px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: #606872; color: white}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
+</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1px; bottom: 2px; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><style type="text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_PHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style></head>
+<body class="logged-out    inclass"><div style="display: none;" id="MathJax_Message"></div>
+    <div id="watermark1" class=""></div>
+    <div id="watermark2" class=""></div>
+    
+    <div id="wrap"><!-- needed for sticky footer -->
+
+
+<div id="menu-open-overlay"></div>
+
+<div id="header2" class="">
+    <div id="header2-inside" class="">
+        <a id="logo" href="https://inclass.kaggle.com/"><img alt="Kaggle in Class" src="Data%20-%20Can%20we%20predict%20voting%20outcomes%3F%20%7C%20Kaggle%20in%20Class_files/site-logo.png" height="55" width="176"></a>
+
+            <ul id="header-ul">
+                <li><a href="https://inclass.kaggle.com/Competitions" title="Search or browse Kaggle in Class competitions">Competitions</a></li>
+<li><a href="https://inclass.kaggle.com/start" title="Get started with hosting your own competition today!">Create a competition</a></li>
+<li><a href="http://blog.kaggle.com/" title="Visit No Free Hunch, the official Kaggle blog">Blog</a></li>
+<li><a href="http://www.kaggle.com/" title="Visit Kaggle">Kaggle</a></li>
+            </ul>
+
+        <script>
+            jQuery(function () {
+                jQuery('#header-ul li:has(ul) > a').click(function (e) {
+                    e.preventDefault();
+
+                    jQuery('#header-ul li').not(jQuery(this).parent()).find('ul').removeClass('open');
+                    jQuery(this).parent().find('ul').toggleClass('open');
+                    jQuery('#menu-open-overlay').show();
+                });
+
+                jQuery('#menu-open-overlay').click(function () {
+                    jQuery('#header-ul ul').removeClass('open');
+                    jQuery('#top-bar-signin').hide();
+                    jQuery(this).hide();
+                });
+
+            });
+        </script>
+
+        <ul id="header-control">
+                <li id="header-signup"><a href="https://inclass.kaggle.com/account/register"><strong><text>Sign up</text></strong></a></li>
+                <li id="header-login">
+                    <a href="https://inclass.kaggle.com/account/login?returnUrl=%2Fc%2Fcan-we-predict-voting-outcomes%2Fdata" class="login-link">Login</a>
+                </li>
+        </ul>
+            <div id="top-bar-signin">
+                <div id="social-authentication-top">
+    <div id="social-authentication-top-head">
+        Log in<br>
+        with —
+    </div>
+    <div id="social-authentication-top-buttons">
+        <a href="https://inclass.kaggle.com/account/authenticate/facebook?js=1" class="socialSignIn facebook" title="Log in with Facebook"><img src="Data%20-%20Can%20we%20predict%20voting%20outcomes%3F%20%7C%20Kaggle%20in%20Class_files/auth-facebook.png" alt="Sign up with Facebook" title="Sign up with Facebook" height="36" width="36"></a>
+        <a href="https://inclass.kaggle.com/account/authenticate/google?js=1" class="socialSignIn google" title="Log in with Google"><img src="Data%20-%20Can%20we%20predict%20voting%20outcomes%3F%20%7C%20Kaggle%20in%20Class_files/auth-google.png" alt="Sign up with Google" title="Sign up with Google" height="36" width="36"></a>
+        <a href="https://inclass.kaggle.com/account/authenticate/yahoo?js=1" class="socialSignIn yahoo" title="Log in with Yahoo"><img src="Data%20-%20Can%20we%20predict%20voting%20outcomes%3F%20%7C%20Kaggle%20in%20Class_files/auth-yahoo.png" alt="Sign up with Yahoo" title="Sign up with Yahoo" height="36" width="36"></a>
+    </div>
+    
+    <script type="text/javascript">
+        var socialSignInLinks = $('a.socialSignIn');
+        socialSignInLinks.attr("href", function(i,v){
+            return v + '?js=1';
+        });
+        socialSignInLinks.click(function(){
+            _gaq.push(['_trackEvent', 'action', 'login', 'top-bar']);
+            return true;
+        });
+    </script>
+</div>
+    
+
+<form action="/account/login" id="signin" method="post"><input id="returnUrl" name="returnUrl" value="https://inclass.kaggle.com/c/can-we-predict-voting-outcomes/data" type="hidden"><input data-val="true" data-val-length="The field User name must be a string with a minimum length of 2 and a maximum length of 255." data-val-length-max="255" data-val-length-min="2" data-val-required="The User name field is required." id="UserName" name="UserName" placeholder="Email / username" type="text"><span class="field-validation-valid" data-valmsg-for="UserName" data-valmsg-replace="true"></span><input data-val="true" data-val-length="The field Password must be a string with a minimum length of 1 and a maximum length of 255." data-val-length-max="255" data-val-length-min="1" data-val-required="The Password field is required." id="Password" name="Password" placeholder="Password" type="password"><span class="field-validation-valid" data-valmsg-for="Password" data-valmsg-replace="true"></span>    <div id="remember-me">
+        <input data-val="true" data-val-required="The Remember me? field is required." id="RememberMe" name="RememberMe" value="true" type="checkbox"><input name="RememberMe" value="false" type="hidden">            
+        <label for="RememberMe">Remember me?</label>
+    </div>   
+    <input value="Login" type="submit">
+<input name="__RequestVerificationToken" value="tIUXsiOiG1XDo2hmlfCztgEVk5IXZq77RULJvctqOD7qf8prFoBCXD8K8Wcvj7rXIdKGjFLI5A_-cTjDRlVEk_7UsSY1" type="hidden">    <input id="signinjs" name="JavaScriptEnabled" value="true" type="hidden">    
+</form>
+<script type="text/javascript">
+    $('#signinjs').attr('value', 'true');
+    $('#signin').submit(function () { _gaq.push(['_trackEvent', 'action', 'login', 'top-bar']); });
+</script>
+
+<div id="forgot-links">        
+You can sign in with your <a href="http://www.kaggle.com/">Kaggle</a> account.    Forgot your <a href="https://inclass.kaggle.com/forgot/username">Username</a> 
+    / 
+    <a href="https://inclass.kaggle.com/forgot/password">Password</a>?
+</div>
+
+            </div>
+            <script>
+                jQuery(function () {
+                    jQuery('.login-link').click(function (e) {
+                        e.preventDefault();
+                        jQuery('#top-bar-signin').toggle();
+                        jQuery('#menu-open-overlay').toggle();
+                        if (jQuery('#top-bar-signin').is(":visible")) {
+                            jQuery('#UserName').focus();
+                        }
+                    });
+                });
+            </script>
+    </div>
+</div>
+
+
+
+
+
+
+
+        
+
+        <!-- header-inside and header -->
+            <div id="main">
+                
+
+
+
+
+
+<div id="competition" @html.attr('class',="" 'prospecting',="" competition.inprospectingphase).add(ispreview="" ?="" 'preview'="" :="" '')="">                <header id="comp-header">
+                    <a href="https://inclass.kaggle.com/c/can-we-predict-voting-outcomes"><img id="comp-image" src="Data%20-%20Can%20we%20predict%20voting%20outcomes%3F%20%7C%20Kaggle%20in%20Class_files/front_page.bin" alt=""></a>
+                    <div id="comp-header-details">
+                        <h2>
+
+                    Knowledge 
+                        • <a href="https://inclass.kaggle.com/c/can-we-predict-voting-outcomes/leaderboard">1,802 teams</a>
+                </h2>
+                <h1><a style="font-size: 26px;" href="https://inclass.kaggle.com/c/can-we-predict-voting-outcomes">Can we predict voting outcomes?</a>
+                        </h1>
+
+                        
+
+                            <div id="comp-header-stats">
+                                    <div id="comp-header-stats-progress-section">
+                                        <div id="comp-header-stats-progress">
+                                            <div id="comp-header-stats-teams" style="width:63%">
+                                            </div>
+                                        </div>
+                                        <div id="comp-progress-start"></div>
+                                        <div id="comp-progress-end"></div>
+
+
+
+
+
+                                    </div>
+
+                                <div id="comp-header-stats-start">
+                                    Tue 24 May 2016
+                                </div>
+                                <div id="comp-header-stats-end">
+                                    Mon 13 Jun 2016
+                                        <span class="to-go-note">
+                                            (7.4 days to go)
+                                        </span>
+                                </div>
+                            </div>
+                    </div>
+                </header>
+                <script type="text/javascript">
+                    jQuery(function ($) {
+                        $('#comp-header-details h1').textfill({ maxFontPixels: 26, innerTag: 'a' });
+                    });
+                </script>
+            <div class="comp-sidebar">
+                
+
+
+<div class="_panel" id="competition-dashboard">
+    <header>
+        <h1>Dashboard</h1>
+    </header>
+    <ul id="competition-dashboard-dropdown">
+        <li class="cd-home">
+            <a href="https://inclass.kaggle.com/c/can-we-predict-voting-outcomes">Home</a>
+            <ul>
+                <li class="cd-data selected"><a href="https://inclass.kaggle.com/c/can-we-predict-voting-outcomes/data">Data</a></li>
+
+                    <li class="cd-submit submission-link">
+                        <a class="comp-link" href="https://inclass.kaggle.com/c/can-we-predict-voting-outcomes/submit">Make a submission</a>
+                    </li>
+            </ul>
+        </li>
+
+        <li class="cd-info">
+            <a id="open-info">Information</a>
+            <ul id="pages-flyout">
+                    <li>
+<a href="https://inclass.kaggle.com/c/can-we-predict-voting-outcomes">Description</a>                    </li>
+                    <li>
+<a href="https://inclass.kaggle.com/c/can-we-predict-voting-outcomes/details/evaluation">Evaluation</a>                    </li>
+                    <li>
+<a href="https://inclass.kaggle.com/c/can-we-predict-voting-outcomes/rules">Rules</a>                    </li>
+
+            </ul>
+        </li>
+
+            <li class="cd-forum"><a href="https://inclass.kaggle.com/c/can-we-predict-voting-outcomes/forums">Forum</a></li>
+
+
+            <li class="cd-leaderboard">
+                <a href="https://inclass.kaggle.com/c/can-we-predict-voting-outcomes/leaderboard">Leaderboard</a>
+            </li>
+
+
+
+
+    </ul>
+</div>
+
+    <script type="text/javascript">
+        $(function () {
+            $(".cd-data").addClass("selected");
+        });
+    </script>
+
+                
+                        <div id="partial-mini-leaderboard">    <div class="widget _panel" id="compside-leaderboard">
+        <header>
+            <h1><a href="https://inclass.kaggle.com/c/can-we-predict-voting-outcomes/leaderboard">Public Leaderboard</a></h1>
+        </header>
+
+        <ol>
+                <li value="1">Ohm J. Patel</li>
+                <li value="2">Stefan Hoglund</li>
+                <li value="3">Artur B</li>
+                <li value="4">Keks</li>
+                <li value="5">Elie</li>
+                <li value="6">SergeyP</li>
+                <li value="7">PJBu</li>
+                <li value="8">RahulMadhavan</li>
+                <li value="9">chrislit</li>
+                <li value="10">IlyaFedorov</li>
+        </ol>
+    </div>
+</div>
+                        <script type="text/javascript">
+                            jQuery(function ($) {
+                                $("#partial-mini-leaderboard").load("/c/5275/partial/mini-leaderboard");
+                            });
+                        </script>
+
+
+    <div class="widget _panel" id="compside-discussions">
+        <header>
+            <h1><a href="https://inclass.kaggle.com/c/can-we-predict-voting-outcomes/forums">Forum (79 topics)</a></h1>
+        </header>
+
+        <ul>
+                <li>
+                    <div class="post-title"><a href="https://inclass.kaggle.com/c/can-we-predict-voting-outcomes/forums/t/21338/drastic-improvements/122691#post122691">Drastic improvements</a></div>
+                    <div class="post-time">42 minutes ago</div>
+                </li>
+                <li>
+                    <div class="post-title"><a href="https://inclass.kaggle.com/c/can-we-predict-voting-outcomes/forums/t/21464/what-year-is-this-data-from-2013-or-2016-or-other/122689#post122689">What year is this Data from? 2013 or 2016 or other</a></div>
+                    <div class="post-time">1 hour ago</div>
+                </li>
+                <li>
+                    <div class="post-title"><a href="https://inclass.kaggle.com/c/can-we-predict-voting-outcomes/forums/t/21465/hpw-do-you-guys-measuring-performance-of-the-models-without-response-variable/122686#post122686">Hpw do you guys measuring performance of the models without response variable on test set? Do we need create ? </a></div>
+                    <div class="post-time">1 hour ago</div>
+                </li>
+                <li>
+                    <div class="post-title"><a href="https://inclass.kaggle.com/c/can-we-predict-voting-outcomes/forums/t/21267/script-to-help-automate-some-initial-data-analysis/122680#post122680">Script to help automate some initial data analysis ...</a></div>
+                    <div class="post-time">1 hour ago</div>
+                </li>
+                <li>
+                    <div class="post-title"><a href="https://inclass.kaggle.com/c/can-we-predict-voting-outcomes/forums/t/21461/front-end-for-google-searches/122679#post122679">Front end for Google searches</a></div>
+                    <div class="post-time">1 hour ago</div>
+                </li>
+                <li>
+                    <div class="post-title"><a href="https://inclass.kaggle.com/c/can-we-predict-voting-outcomes/forums/t/21262/test-and-train-data/122676#post122676">Test and train data </a></div>
+                    <div class="post-time">2 hours ago</div>
+                </li>
+        </ul>
+
+    </div> 
+                    <div id="partial-stats-ticker">
+
+    <div id="stats-ticker">
+        <div id="teams" class="ticker">
+                <div class="numbers converted"><div class="ticker-number ticker-1"></div><div class="ticker-number ticker-8"></div><div class="ticker-number ticker-0"></div><div class="ticker-number ticker-2"></div></div>
+                <div class="ticker-caption">teams</div>
+        </div>
+        
+        <div id="players" class="ticker">
+            <div class="numbers converted"><div class="ticker-number ticker-1"></div><div class="ticker-number ticker-8"></div><div class="ticker-number ticker-0"></div><div class="ticker-number ticker-2"></div></div>
+            <div class="ticker-caption">players</div>
+        </div>
+
+        <div id="entries" class="ticker">
+                <div class="numbers converted"><div class="ticker-number ticker-1"></div><div class="ticker-number ticker-7"></div><div class="ticker-number ticker-3"></div><div class="ticker-number ticker-2"></div><div class="ticker-number ticker-4"></div></div>
+                <div class="ticker-caption">entries</div>
+        </div>
+    </div>
+    
+</div>
+                    <script type="text/javascript">
+                        jQuery(function ($) {
+                            $("#partial-stats-ticker").load("/c/5275/partial/stats");
+                        });
+                    </script>
+            </div>
+    <div class="data---can-we-predict-voting-outcomes?-page comp-content with-sidebar _panel">
+            <header class="data">
+                <div class="simple-steps">
+                    <a class="info" href="https://inclass.kaggle.com/c/can-we-predict-voting-outcomes">Competition Details</a>
+                    »
+                    <a class="data" href="https://inclass.kaggle.com/c/can-we-predict-voting-outcomes/data">Get the Data</a>
+                        »
+                        <a class="submit" href="https://inclass.kaggle.com/c/can-we-predict-voting-outcomes/submit">Make a submission</a>
+                </div>
+                    </header>
+                <div class="comp-content-inside">
+                    <div id="competition-intro">
+
+                    </div>
+
+
+
+
+
+<h3>Data Files</h3>
+
+
+
+    <table id="data-files" class="nicetable full roomy align-top border">   
+        <thead>
+            <tr>
+                <th colspan="2">File Name</th> 
+                <th>Available Formats</th>         
+            </tr> 
+        </thead>
+
+            <tbody>
+                <tr>
+
+                    <td class="file-name" colspan="2" rowspan="1">Questions</td>
+                    <td>
+<a class="pdf-link" href="https://inclass.kaggle.com/c/can-we-predict-voting-outcomes/download/Questions.pdf" name="Questions.pdf" onclick="window.Intercom('trackEvent','download_compdata',{'comp_id': 5275});">.pdf (41.07 kb)</a>                    </td>
+                </tr>
+
+            </tbody>
+            <tbody>
+                <tr>
+
+                    <td class="file-name" colspan="2" rowspan="1">test2016</td>
+                    <td>
+<a href="https://inclass.kaggle.com/c/can-we-predict-voting-outcomes/download/test2016.csv" name="test2016.csv" onclick="window.Intercom('trackEvent','download_compdata',{'comp_id': 5275});">.csv (523.16 kb)</a>                    </td>
+                </tr>
+
+            </tbody>
+            <tbody>
+                <tr>
+
+                    <td class="file-name" colspan="2" rowspan="1">train2016</td>
+                    <td>
+<a href="https://inclass.kaggle.com/c/can-we-predict-voting-outcomes/download/train2016.csv" name="train2016.csv" onclick="window.Intercom('trackEvent','download_compdata',{'comp_id': 5275});">.csv (2.10 mb)</a>                    </td>
+                </tr>
+
+            </tbody>
+            <tbody>
+                <tr>
+
+                    <td class="file-name" colspan="2" rowspan="1">sampleSubmission2016</td>
+                    <td>
+<a href="https://inclass.kaggle.com/c/can-we-predict-voting-outcomes/download/sampleSubmission2016.csv" name="sampleSubmission2016.csv" onclick="window.Intercom('trackEvent','download_compdata',{'comp_id': 5275});">.csv (20.16 kb)</a>                    </td>
+                </tr>
+
+            </tbody>
+    </table>
+    <script type="text/javascript">
+        $(function () {
+
+            // Decorate obselete files
+            $('#data-files a.obsolete').each(function () {
+                var obsoleteMsg = "Superseded by newer version";
+                if ($(this).data('msg')) {
+                    obsoleteMsg = $(this).attr('data-msg');
+                }
+
+                $(this).attr('title', obsoleteMsg);
+            });
+
+            // If we have a search parameter, try to immediately download the
+            // file of that name.
+            var search = this.location.search;
+            if (search.length) {
+                var selector = "#data-files a[name=\"" + search.substr(1) + "\"]";
+                var fileLink = $(selector);
+                if (fileLink.length == 1) {
+                        this.location = fileLink.prop("href");
+                }
+            }
+        });
+    </script>
+
+<div class="cms-page">
+    
+
+    <h2>File descriptions</h2>
+<p>Here is a description of the files you have been provided for this competition:&nbsp;</p>
+<ul>
+<li><strong>train2016.csv</strong> -&nbsp;the training set of data that you should use to build your models</li>
+<li><strong>test2016.csv</strong> -&nbsp;the test set that you will be 
+evaluated on. It contains all of the independent variables, but not the 
+dependent variable.</li>
+<li><strong>sampleSubmission2016.csv</strong> -&nbsp;a sample submission file in the correct format.</li>
+<li><strong>Questions.pdf</strong>&nbsp;-&nbsp;the question test corresponding to each of the question codes, as well as the possible answers.</li>
+</ul>
+<h2>Data fields</h2>
+<ul>
+<li><strong>USER_ID</strong>&nbsp;- an anonymous id unique to a given user</li>
+<li><strong>YOB</strong>&nbsp;-&nbsp;the year of birth of the user</li>
+<li><strong>Gender</strong>&nbsp;- the gender of the user, either Male or Female</li>
+<li><strong>Income</strong>&nbsp;-&nbsp;the household income of the 
+user. Either not provided, or one of "under $25,000", "$25,001 - 
+$50,000", "$50,000 - $74,999", "$75,000 - $100,000", "$100,001 - 
+$150,000", or "over $150,000".</li>
+<li><strong>HouseholdStatus</strong> -&nbsp;the household status of the 
+user. Either not provided, or one of "Domestic Partners (no kids)", 
+"Domestic Partners (w/kids)", "Married (no kids)", "Married (w/kids)", 
+"Single (no kids)", or "Single (w/kids)".</li>
+<li><strong>EducationalLevel</strong> -&nbsp;the education level of the 
+user. Either not provided, or one of "Current K-12", "High School 
+Diploma", "Current Undergraduate", "Associate's Degree", "Bachelor's 
+Degree", "Master's Degree", or "Doctoral Degree".</li>
+<li><strong>Party</strong> -&nbsp;the political party for whom the user intends to vote for. Either "Democrat" or "Republican</li>
+<li><strong>Q124742, Q124122, . . . , Q96024</strong> - 101 different 
+questions that the users were asked on Show of Hands. If the user didn't
+ answer the question, there is a blank. For information about the 
+question text and possible answers, see the file Questions.pdf.</li>
+</ul>
+</div>
+
+                </div>
+            </div>  
+        </div>
+    
+
+
+            </div>
+    </div> <!-- wrap -->
+    
+        <div id="footer">
+            <div id="footer-inside">
+                <div id="footer-social">
+                        <div id="social-links">
+            <a class="twitter" href="http://www.twitter.com/kaggle" title="Follow Kaggle in Class on Twitter"></a>     
+                    <a class="facebook" href="http://www.facebook.com/kaggle" title="Follow Kaggle in Class on Facebook"></a>           
+                    <a class="linkedin" href="http://www.linkedin.com/companies/kaggle" title="Follow Kaggle in Class on LinkedIn"></a>        
+    </div><!-- social-links -->
+
+                </div>
+                <div id="footer-copyright">
+                    
+
+
+© 2016 Kaggle Inc                </div>
+                <div id="footer-links">
+                    <a href="https://www.kaggle.com/terms">Terms &amp; Conditions</a> •  
+<a href="https://www.kaggle.com/privacy">Privacy Policy</a> <!--&bull;  
+<a href="//www.kaggle.com/contact">Contact Us</a>-->
+                </div> <!-- footer-links -->
+            </div> <!-- footer-inside -->
+        </div> <!--footer-->
+
+        <script type="text/x-mathjax-config;executed=true">
+            MathJax.Hub.Config({
+                "HTML-CSS": {
+                    preferredFont: "TeX",
+                    availableFonts: ["STIX","TeX"],
+                    linebreaks: {
+                        automatic: true
+                    },
+                    EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+                },
+                tex2jax: {
+                    inlineMath: [ ["\\\\(","\\\\)"] ],
+                    displayMath: [ ["$$","$$"], ["\\[", "\\]"] ],
+                    processEscapes: true,
+                    ignoreClass: "tex2jax_ignore|dno"
+                },
+                TeX: {
+                    noUndefined: {
+                        attributes: {
+                            mathcolor: "red",
+                            mathbackground: "#FFEEEE",
+                            mathsize: "90%"
+                        }
+                    }
+                },
+                Macros: { 
+                    href: "{}" 
+                },
+                messageStyle: "none"
+            });
+        </script>
+        
+        <script type="text/javascript">
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-12629138-1']);
+            _gaq.push(['_trackPageview']);
+            _gaq.push(['_trackPageLoadTime']);
+            _gaq.push(['_setCustomVar', 1, 'usertype', 'anonymous', 2]);
+            (function () {
+                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            })();
+        </script>
+        <script type="text/javascript">
+            /**
+        * Function that tracks a click on an outbound link in Google Analytics.
+        * This function takes a valid URL string as an argument, and uses that URL string
+        * as the event label.
+        * See: https://support.google.com/analytics/answer/1136920?hl=en
+        */
+            var trackOutboundLink = function(url) {
+                ga('send', 'event', 'outbound', 'click', url, {'hitCallback':
+                        function () {
+                            document.location = url;
+                        }
+                });
+            }
+        </script>
+
+
+    
+
+    <!-- Cheers, RD00155D4859F5p. -->
+
+
+<iframe style="display: none;"></iframe></body></html>
