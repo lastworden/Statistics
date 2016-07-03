@@ -1,9 +1,9 @@
 
-pollTrain = read.csv("train2016.csv")
+pollTrain = read.csv("train2016.csv",na.strings=c("","NA"))
 
 str(pollTrain)
 
-pollTest = read.csv("test2016.csv")
+pollTest = read.csv("test2016.csv",na.strings=c("","NA"))#, na.strings=c("","NA"))
 
 summary(pollTrain$Party)
 
@@ -13,15 +13,32 @@ table(pollTrain$Party)
 
 2951/(2951+2617)
 
-library(caTools)
+library(mice)
 
-split = sample.split(pollTrain, SplitRatio = 0.7)
+# We will do only partial impute for now 
+vars_for_impute = setdiff(names(pollTrain),c("USER_ID", "Party"))
+vars_for_impute
+imputed_train = complete(mice(pollTrain[vars_for_impute]))
+pollTrain[vars_for_impute] = imputed_train
+str(pollTrain)
+
+vars_for_impute = setdiff(names(pollTest),c("USER_ID", "Party"))
+vars_for_impute
+
+imputed_test = complete(mice(pollTest[vars_for_impute]))
+pollTest[vars_for_impute] = imputed_test
+str(pollTest)
+
+library(caTools)
+pollTrainImp = read.csv("pollTrain_imputed.csv")
+
+split = sample.split(pollTrainImp$Party, SplitRatio = 0.7)
 split[1:10]
 
 nrow(pollTrain)
-Train = pollTrain[split,setdiff(names(pollTrain), "USER_ID")]
+Train = pollTrainImp[split,setdiff(names(pollTrainImp), "USER_ID")]
 nrow(Train)
-Test = pollTrain[!split,setdiff(names(pollTrain), "USER_ID")]
+Test = pollTrainImp[!split,setdiff(names(pollTrainImp), "USER_ID")]
 nrow(Test)
 
 setdiff(c("12","as","de"), "de")
@@ -45,6 +62,8 @@ summary(LogModel1)
 
 PrdTrain = predict(LogModel1,newdata = Train, type = "response")
 
+summary(PrdTrain>0.5)
+
 t = table(Train$Party,PrdTrain>0.5)
 t
 
@@ -61,7 +80,16 @@ t
 
 sum(diag(t))/sum(t)
 
+library(ROCR)
+
+
+ROCRPred = prediction(PrdTest,Test$Party)
+ROCRPerf = performance(ROCRPred,"tpr","fpr")
+plot(ROCRPerf,colorize = TRUE, print.cutoffs.at = seq(0,1,0.1))
+
 prdFinTest = predict(LogModel1,newdata = pollTest, type = "response")
+
+str(pollTest)
 
 prdFinTest2 = prdFinTest
 
@@ -105,5 +133,9 @@ summary(df)
 table(pollTrain$Party)
 
 write.csv(df,"submit1.csv",row.names=FALSE)
+
+write.csv(pollTrain,"pollTrain_imputed.csv",row.names=FALSE)
+
+write.csv(pollTest,"pollTest_imputed.csv",row.names=FALSE)
 
 

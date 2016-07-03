@@ -70,11 +70,15 @@ mean(normTest$ReturnJan)
 set.seed(144)
 km = kmeans(normTrain, centers = 3)
 
+summary(km)
+
 table(km$cluster)
 
 library(flexclust)
 
 km.kcca = as.kcca(km,normTrain)
+
+summary(km.kcca)
 
 clusterTrain = predict(km.kcca)
 
